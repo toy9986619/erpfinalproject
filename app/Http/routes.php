@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+/*Route::get('test', function(){
+	return "hi";
+});*/
+Route::get('testjson', function(){
+	return view('testjson');
+});
+Route::get('staff', 'StaffController@index');
+Route::get('/test', 'TestController@jsontest');
