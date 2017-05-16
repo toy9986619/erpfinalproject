@@ -22,3 +22,11 @@ Route::get('testjson', function(){
 });
 Route::get('staff', 'StaffController@index');
 Route::get('/test', 'TestController@jsontest');
+
+Route::get('home', function(){
+	return view('home');
+});
+Route::get('login', function(){
+	return view('login');
+});
+
