@@ -26,7 +26,9 @@ Route::get('/test', 'TestController@jsontest');
 Route::get('home', function(){
 	return view('home');
 });
-Route::get('login', function(){
+/*Route::get('log-in', function(){
 	return view('login');
-});
-
+});*/
+Route::get('login', 'LoginController@show');
+Route::post('login', 'LoginController@login');
+//Route::get('logout', 'LoginController@logout');
