@@ -23,12 +23,16 @@
 			</header>
 
 		<!-- Signup Form -->
-			<form id="signup-form" method="post" action="login">
-				<br/><input type="text" name="user" id="user" placeholder="User ID" /><br/>
-				<input type="password" name="pswd" id="pswd" placeholder="Password" /><br/>
+			<form id="signup-form" method="post" action="/login">
+				<br/><input type="text" name="user" id="user" placeholder="User ID"  style="width:288px"/><br/>
+				<input type="password" name="pswd" id="pswd" placeholder="Password" style="width:288px"/><br/>
 				<input type="submit" value="Sign in" /><br/><br/>
 				<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 			</form>
+			@if ($errors->has('status'))
+				<script> window.alert("The user ID or password is not correct.\nPlease try again.");</script>
+			@endif
+			
 
 		<!-- Footer -->
 			<footer id="footer">

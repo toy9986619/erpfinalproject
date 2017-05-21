@@ -5,7 +5,7 @@
 <body>
     <table border="1px" id="table1"></table>
     <p id="editpanel"></p>
-
+    <table border="1px" id="table2"></table>
     <button id="button" onclick="myfunction()">test</button>
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

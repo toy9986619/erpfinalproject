@@ -87,6 +87,16 @@
 							<header>
 								<h2>Working Hours</h2>
 							</header>
+							
+							<table border="1px" id="table1"></table>
+							<p id="editpanel"></p>
+							<table border="1px" id="table2"></table>
+							
+						<input type="button" id="button" onclick="myfunction()" value="test" />
+    
+						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+						<script src="http://momo.sytes.net:808/json/jsonblade.js"> </script>  
+							
 
 						</div>
 					</section>

@@ -32,3 +32,7 @@ Route::get('home', function(){
 Route::get('login', 'LoginController@show');
 Route::post('login', 'LoginController@login');
 //Route::get('logout', 'LoginController@logout');
+Route::get('record','RecordController@index');
+
+Route::resource('salary', 'SalaryController');
+Route::get('countSalary', 'WorktimeController@countSalary');
