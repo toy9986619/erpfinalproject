@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="{{ URL::asset('/homepage/assets/css/main.css') }}" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<link rel="stylesheet" href="/homepage/assets/css/animate.min.css">
 	</head>
 	<body>
 
@@ -30,24 +31,10 @@
 
 					<!-- Nav -->
 						<nav id="nav">
-							<!--
-
-								Prologue's nav expects links in one of two formats:
-
-								1. Hash link (scrolls to a different section within the page)
-
-								   <li><a href="#foobar" id="foobar-link" class="icon fa-whatever-icon-you-want skel-layers-ignoreHref"><span class="label">Foobar</span></a></li>
-
-								2. Standard link (sends the user to another page/site)
-
-								   <li><a href="http://foobar.tld" id="foobar-link" class="icon fa-whatever-icon-you-want"><span class="label">Foobar</span></a></li>
-
-							-->
 							<ul>
 								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
 								<li><a href="#salary" id="salary-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Working Hours</span></a></li>
-								<!-- <li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-user">About Me</span></a></li>
-								<li><a href="#contact" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Contact</span></a></li> -->
+								
 							</ul>
 						</nav>
 
@@ -90,65 +77,32 @@
 							
 							<table border="1px" id="table1"></table>
 							<p id="editpanel"></p>
+							<a id="demo01" href="#animatedModal">我要修改</a><br>
+							
+							
+							
+							
+							<div id="animatedModal">
+							<div class="close-animatedModal"> CLOSE MODAL</div>
+							<div class="modal-content">
+							
 							<table border="1px" id="table2"></table>
+							</div>
+							</div>
+							
+							
+							
+							
+							
 							
 						<input type="button" id="button" onclick="myfunction()" value="test" />
     
 						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-						<script src="http://momo.sytes.net:808/json/jsonblade.js"> </script>  
+						<script src="http://momo.sytes.net:808/json/jsonblade052601.js"> </script>  
 							
 
 						</div>
 					</section>
-
-				<!-- About Me -->
-					<!--<section id="about" class="three">
-						<div class="container">
-
-							<header>
-								<h2>About Me</h2>
-							</header>
-
-							<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
-
-							<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
-							ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
-							laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
-							parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
-							dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
-							ornare iaculis.</p>
-
-						</div>
-					</section>
-
-				<!-- Contact -->
-					<!--<section id="contact" class="four">
-						<div class="container">
-
-							<header>
-								<h2>Contact</h2>
-							</header>
-
-							<p>Elementum sem parturient nulla quam placerat viverra
-							mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
-							donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc
-							orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
-
-							<form method="post" action="#">
-								<div class="row">
-									<div class="6u 12u$(mobile)"><input type="text" name="name" placeholder="Name" /></div>
-									<div class="6u$ 12u$(mobile)"><input type="text" name="email" placeholder="Email" /></div>
-									<div class="12u$">
-										<textarea name="message" placeholder="Message"></textarea>
-									</div>
-									<div class="12u$">
-										<input type="submit" value="Send Message" />
-									</div>
-								</div>
-							</form>
-
-						</div>
-					</section>-->
 
 			</div>
 
@@ -170,6 +124,23 @@
 			<script src="{{ URL::asset('/homepage/assets/js/util.js') }}"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="{{ URL::asset('/homepage/assets/js/main.js') }}"></script>
+			<script src="{{ URL::asset('/homepage/assets/js/animatedModal.js') }}"></script>
+			
+			<script>
+				$("#demo01").animatedModal();
+				if(document.getElementById("edit1")){
+					document.getElementById("edit1").onclick = function(){jump();}
+					
+				}
+				function jump(){
+					lnk = document.getElementById("demo01"); 
+					lnk.click();
+				}
+				
+				
+				
+				
+			</script>
 
 	</body>
 </html>

@@ -7,7 +7,7 @@ use App\Http\Requests;
 use DB;
 use App\Http\Controllers\Controller;
 
-class StaffController extends Controller
+class MytestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,49 @@ class StaffController extends Controller
      */
     public function index()
     {
-		$users = DB::table('staff')->select('sid', 'staffId', 'username', 'phone', 'erContact', 'erPhone')->take(10)->get();
-        return response()->json($users, 200); 
+		$year=date("Y");
+		$month=date("m", strtotime("-1 month"));
+		if($month == 12){	$year=$year-1;}
+		$time=$year.'-'.$month;
+
+		$days = date('t', mktime(0, 0, 0, $month, 1, $year));   //get days
+
+		$staff=DB::table('staff')->get();	//get all staff
+		$staffNum=count($staff);			//get staff numbers
+		$recordResult=array();
+
+		for($i=1; $i<=$days; $i++){
+			for($j=0; $j<$staffNum; $j++){
+				//get time
+				if($i<10)	$searchTime=$time.'-0'.$i;
+				else		$searchTime=$time.'-'.$i;
+				
+				$record = DB::table('record')
+					->select('created_at')
+					->where('username', '=', $staff[$j]->username)
+					->where('created_at', 'like', "$searchTime%")
+					->get();
+
+				$recordNum=count($record);
+				//echo "$searchTime $recordNum</br>";
+
+				if($recordNum<=0) continue;
+				//echo "$searchTime</br>";
+				$firstRecordTime=substr($record[0]->created_at, -8);
+				$lastRecordTime=substr($record[$recordNum-1]->created_at, -8);
+				$temp=array(
+					"sid" => $staff[$j]->sid,
+					"staffId" => $staff[$j]->staffId,
+					"username" => $staff[$j]->username,
+					"date" => $searchTime,
+					"first" => $firstRecordTime,
+					"last" => $lastRecordTime
+				);		
+				array_push($recordResult, $temp);
+
+			}
+		}
+		return response()->json($recordResult, 200);
     }
 
     /**
@@ -38,11 +79,7 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-		$staff = $request->only('username', 'phone', 'email', 'address', 'baseSalary', 'extraSalary');
-		$staff['hourSalary'] = round(($staff['baseSalary'] + $staff['extraSalary'])/30, 0);
-		$staff['created_at'] = date('Y-m-d H:i:s');
-		DB::table('staff')->insert($staff);
-		return response()->json($staff, 200);        
+		
     }
 
     /**
@@ -53,24 +90,16 @@ class StaffController extends Controller
      */
     public function show($sid)
     {
-        $staff = DB::table('staff')
-			->select('sid', 'username', 'phone', 'email', 'address', 'baseSalary', 'extraSalary')
-			->where('sid', '=', $sid)->get();
-        return response()->json($staff, 200);        
-    }
-
+		
+	}
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($sid)
+    public function edit($id)
     {
-        $staff = DB::table('staff')
-            ->select('sid', 'username', 'phone', 'email', 'address', 'baseSalary', 'extraSalary')
-            ->where('sid', '=', $sid)->first();
-        return response()->json($staff, 200);    
 	}
 
     /**
@@ -82,12 +111,6 @@ class StaffController extends Controller
      */
     public function update(Request $request, $sid)
     {
-        $staff = $request->only('username', 'phone', 'email', 'address', 'baseSalary', 'extraSalary');
-        $staff['hourSalary'] = round(($staff['baseSalary'] + $staff['extraSalary'])/30, 0);
-        DB::table('staff')
-			->where('sid', $sid)
-			->update($staff);
-        return response()->json(['status' => 1], 200);        
     }
 
     /**

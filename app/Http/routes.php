@@ -20,7 +20,10 @@ Route::get('/', function () {
 Route::get('testjson', function(){
 	return view('testjson');
 });
-Route::get('staff', 'StaffController@index');
+Route::get('salaryjson', function(){
+	return view('salaryjson');
+});
+Route::resource('staff', 'StaffController');
 Route::get('/test', 'TestController@jsontest');
 
 Route::get('home', function(){
@@ -36,3 +39,4 @@ Route::get('record','RecordController@index');
 
 Route::resource('salary', 'SalaryController');
 Route::get('countSalary', 'WorktimeController@countSalary');
+Route::get('mytest','MytestController@index');
