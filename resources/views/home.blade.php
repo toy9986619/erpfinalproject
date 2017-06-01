@@ -33,7 +33,9 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
-								<li><a href="#salary" id="salary-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Working Hours</span></a></li>
+								<li><a href="#staff" id="staff-link" class="skel-layers-ignoreHref"><span class="icon fa-user">Staffs</span></a></li>
+								<li><a href="#record" id="record-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Records</span></a></li>
+								<li><a href="#salary" id="salary-link" class="skel-layers-ignoreHref"><span class="icon fa-usd">Salary</span></a></li>
 								
 							</ul>
 						</nav>
@@ -56,11 +58,11 @@
 							<header>
 								<h2 class="alt"><br/>Welcome back,<br/>
 								Dear 滷味攻城屍 .</h2>
-								<p><br/><br/><br/>You can check employees' infomation here.</p>
+								<p><br/><br/><br/>You can check staffs' infomation here.</p>
 							</header>
 
 							<footer>
-								<a href="#salary" class="button scrolly">Enter</a>
+								<a href="#staff" class="button scrolly">Enter</a>
 							</footer>
 							<br/>
 
@@ -68,38 +70,40 @@
 					</section>
 
 				<!-- Portfolio -->
-					<section id="salary" class="two">
+					<section id="staff" class="two">
 						<div class="container">
-
 							<header>
-								<h2>Working Hours</h2>
+								<h2>Staffs</h2>
 							</header>
-							
 							<table border="1px" id="table1"></table>
-							<p id="editpanel"></p>
-							<a id="demo01" href="#animatedModal">我要修改</a><br>
-							
-							
-							
-							
 							<div id="animatedModal">
-							<div class="close-animatedModal"> CLOSE MODAL</div>
+							<p align="right" id="close" class="close-animatedModal"></p>
 							<div class="modal-content">
-							
+							<p id="editpanel"></p>
+							<font size="3">
 							<table border="1px" id="table2"></table>
+							<form id="form1"></form>
+							</font>
 							</div>
 							</div>
-							
-							
-							
-							
-							
-							
 						<input type="button" id="button" onclick="myfunction()" value="test" />
-    
 						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-						<script src="http://momo.sytes.net:808/json/jsonblade052601.js"> </script>  
-							
+						<script src="http://momo.sytes.net:808/json/jsonblade060201.js"> </script>
+						</div>
+					</section>
+					<section id="record" class="three">
+						<div class="container">
+							<header>
+								<h2>Records</h2>
+							</header>
+
+						</div>
+					</section>
+					<section id="salary" class="four">
+						<div class="container">
+							<header>
+								<h2>Salary</h2>
+							</header>
 
 						</div>
 					</section>
@@ -108,7 +112,8 @@
 
 		<!-- Footer -->
 			<div id="footer">
-
+				<!--invisible button-->
+					<a id="demo01" href="#animatedModal"></a><br>
 				<!-- Copyright -->
 					<ul class="copyright">
 						<li>&copy; TAIWAN No.1!!! All rights reserved.</li>
@@ -127,19 +132,11 @@
 			<script src="{{ URL::asset('/homepage/assets/js/animatedModal.js') }}"></script>
 			
 			<script>
-				$("#demo01").animatedModal();
-				if(document.getElementById("edit1")){
-					document.getElementById("edit1").onclick = function(){jump();}
-					
+				if(document.getElementById("demo01")){
+					document.getElementById("demo01").onclick = function(){
+					document.getElementById("close").innerHTML = '<i class="fa fa-close"></i>';
+					}
 				}
-				function jump(){
-					lnk = document.getElementById("demo01"); 
-					lnk.click();
-				}
-				
-				
-				
-				
 			</script>
 
 	</body>

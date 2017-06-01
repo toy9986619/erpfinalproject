@@ -69,7 +69,10 @@ class SalaryController extends Controller
      */
     public function edit($id)
     {
-        //
+			$staff=DB::table('salary')
+				->select('staffId','username','salary','extra','allsalary')
+			->where('id','=',$id)->get();
+			return response()->json($staff,200);
     }
 
     /**
@@ -81,7 +84,22 @@ class SalaryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    	$salary=$request->only('salary', 'extra');
+		$pay=DB::table('salary')
+			->where('id','=',$id)
+			->value('salary');
+		$salary['allsalary']=$pay+$salary['extra'];
+		/* 
+		 * $pay=DB::table('salary')
+		 * 		->where('id','=',$id)
+		 * 		->get();
+		 *
+		 * $salary['allsalary']=$pay->salary+$salary['extra'];
+		*/
+		DB::table('salary')
+			->where('id','=',$id)
+			->update($salary);
+		return response()->json(['status'=>1], 200);
     }
 
     /**

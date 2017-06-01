@@ -17,40 +17,39 @@ class RecordController extends Controller
     public function index()
     {
 		$year=date("Y");
-		$month=date("m", strtotime("-1 month"));
-		if($month == 12){	$year=$year-1;}
+		$month=date("m");
 		$time=$year.'-'.$month;
-			
-		echo "$time";
-
-		$days = date('t', mktime(0, 0, 0, $month, 1, $year));   //get days
-
 
 		$staff=DB::table('staff')->get();	//get all staff
 		$staffNum=count($staff);			//get staff numbers
 		$recordResult=array();
 
-		for($i=1; $i<=$days; $i++){
 			for($j=0; $j<$staffNum; $j++){
-				//get time
-				if($i<10)	$searchTime=$time.'-0'.$i;
-				else		$searchTime=$time.'-'.$i;
-				
-				$record = DB::table('record')
-					->join('staff', 'record.staffId', '=', 'staff.staffid')
-					->select('record.rid', 'staff.sid', 'record.staffId', 'record.username', 'record.created_at')
-					->where('record.username', '=', $staff[$j]->username)
-					->where('record.created_at', 'like', "$searchTime%")
-					->get();
+
+                $time = DB::table('record')
+                    ->select('created_at')
+                    ->where('username', '=', $staff[$j]->username)
+                    ->max('created_at');
+                $searchTime=substr($time, 0, 10);
+
+                $record = DB::table('record')
+                    ->select('created_at')
+                    ->where('username', '=', $staff[$j]->username)
+                    ->where('created_at', 'like', "$searchTime%")
+                    ->get();
 
 				$recordNum=count($record);
-				//echo "$searchTime $recordNum</br>";
 
-				if($recordNum>0){
-				//echo "$searchTime</br>";
+                if($recordNum==0)   continue;
+				else if($recordNum==1){
 				$firstRecordTime=substr($record[0]->created_at, -8);
+                $lastRecordTime=substr($record[0]->created_at, -8);
+                }else{
+                $firstRecordTime=substr($record[0]->created_at, -8);
 				$lastRecordTime=substr($record[$recordNum-1]->created_at, -8);
-				$temp=array(
+				}
+
+                $temp=array(
 					"sid" => $staff[$j]->sid,
 					"staffId" => $staff[$j]->staffId,
 					"username" => $staff[$j]->username,
@@ -60,12 +59,12 @@ class RecordController extends Controller
 				);
 				
 				array_push($recordResult, $temp);
-				}
 			}
-		}
-
-		return response()->json($recordResult, 200);
-    }
+			
+		//}
+		return response()
+			->json($recordResult, 200);
+	}
 
     /**
      * Show the form for creating a new resource.
@@ -95,9 +94,55 @@ class RecordController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($sid)
-    {
-		
-	}
+	{
+		$year=date("Y");
+		$month=date("m");
+		$time = $year."-".$month;
+        $days=date('t', mktime(0, 0, 0, $month, 1, $year));
+
+        $recordResult=array();
+
+		$staff = DB::table('staff')
+				->where('sid', $sid)
+				->get();
+        //echo $staff[0]->sid;
+        
+        for($i=1; $i<=$days; $i++){
+            if($i<10) $searchTime=$time.'-0'.$i;
+            else        $searchTime=$time.'-'.$i;
+
+		    $record = DB::table('record')
+			    ->select('rid', 'staffId', 'rfid', 'username', 'created_at')
+			    ->where('created_at', 'like', "$searchTime%")
+			    ->where('staffId', $staff[0]->staffId)
+			    ->get();
+
+            $recordNum=count($record);
+
+            if($recordNum==0)   continue;
+            else if($recordNum==1){
+                $firstRecordTime=substr($record[0]->created_at, -8);
+                $lastRecordTime=substr($record[0]->created_at, -8);
+            }else{
+                $firstRecordTime=substr($record[0]->created_at, -8);
+                $lastRecordTime=substr($record[$recordNum-1]->created_at, -8);
+            }
+
+            $temp=array(
+                "sid"   =>  $sid,
+                "staffId" => $staff[0]->staffId,
+                "username" => $staff[0]->username,
+                "date" => $searchTime,
+                "first" => $firstRecordTime,
+                "last" => $lastRecordTime
+            );
+                
+            array_push($recordResult, $temp);
+        }
+
+		return response()->json($recordResult, 200);
+	   
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -106,6 +151,7 @@ class RecordController extends Controller
      */
     public function edit($id)
     {
+		//facebook上線~~~~
 	}
 
     /**

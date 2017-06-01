@@ -9,20 +9,20 @@ class RecordSeeder extends Seeder
      * @return void
      */
     public function run(){
-		DB::table('record')->truncate();
+//		DB::table('record')->truncate();
 		/////上班
 		for($i=1;$i<=10;$i++){
 			DB::table('record')->insert([
 				'staffId'=>DB::table('staff')->where('sid',$i)->value('staffId'),
 				'rfid'=>DB::table('staff')->where('sid',$i)->value('rfid'),
 				'username'=>DB::table('staff')->where('sid',$i)->value('username'),
-				'created_at'=>('2017-04-21 09:00:00'),	
+				'created_at'=>('2017-06-02 09:00:00'),	
 			]);
 			DB::table('record')->insert([
 				'staffId'=>DB::table('staff')->where('sid',$i)->value('staffId'),
 				'rfid'=>DB::table('staff')->where('sid',$i)->value('rfid'),
 				'username'=>DB::table('staff')->where('sid',$i)->value('username'),
-				'created_at'=>('2017-04-21 20:00:00'),
+				'created_at'=>('2017-06-02 20:00:00'),
 			]);
 		}
 	}

@@ -39,7 +39,7 @@ class StaffController extends Controller
     public function store(Request $request)
     {
 		$staff = $request->only('username', 'phone', 'email', 'address', 'baseSalary', 'extraSalary');
-		$staff['hourSalary'] = round(($staff['baseSalary'] + $staff['extraSalary'])/30, 0);
+		$staff['hourSalary'] = round(($staff['baseSalary'] + $staff['extraSalary'])/(22*8), 0);
 		$staff['created_at'] = date('Y-m-d H:i:s');
 		DB::table('staff')->insert($staff);
 		return response()->json($staff, 200);        
@@ -83,7 +83,7 @@ class StaffController extends Controller
     public function update(Request $request, $sid)
     {
         $staff = $request->only('username', 'phone', 'email', 'address', 'baseSalary', 'extraSalary');
-        $staff['hourSalary'] = round(($staff['baseSalary'] + $staff['extraSalary'])/30, 0);
+        $staff['hourSalary'] = round(($staff['baseSalary'] + $staff['extraSalary'])/(22*8), 0);
         DB::table('staff')
 			->where('sid', $sid)
 			->update($staff);

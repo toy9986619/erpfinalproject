@@ -15,13 +15,13 @@
         var settings = $.extend({
             modalTarget:'animatedModal', 
             position:'fixed', 
-            width:'100%', 
+            width:'80%', 
             height:'100%', 
             top:'0px', 
-            left:'0px', 
+            left:'300px', 
             zIndexIn: '9999',  
             zIndexOut: '-9999',  
-            color: '#39BEB9', 
+            color: '#b5d4d3', 
             opacityIn:'1',  
             opacityOut:'0', 
             animatedIn:'zoomIn',
@@ -61,10 +61,7 @@
             'overflow-y':settings.overflow,
             'z-index':settings.zIndexOut,
             'opacity':settings.opacityOut,
-            '-webkit-animation-duration':settings.animationDuration,
-            '-moz-animation-duration':settings.animationDuration,
-            '-ms-animation-duration':settings.animationDuration,
-            'animation-duration':settings.animationDuration
+            '-webkit-animation-duration':settings.animationDuration
         };
         //Apply stles
         id.css(initStyles);
