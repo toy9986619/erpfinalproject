@@ -14,24 +14,31 @@ class RecordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        $page=$request->input('page')-1;
+        if($page<=0)    $page=0;
 		$year=date("Y");
 		$month=date("m");
 		$time=$year.'-'.$month;
 
 		$staff=DB::table('staff')->get();	//get all staff
 		$staffNum=count($staff);			//get staff numbers
-		$recordResult=array();
-
-			for($j=0; $j<$staffNum; $j++){
+        $recordResult=array();
+        
+        $j=$page*10;
+        $end=$j+10;
+			for($j; $j<$end; $j++){
+                if($j>=$staffNum) break;
 
                 $time = DB::table('record')
                     ->select('created_at')
                     ->where('username', '=', $staff[$j]->username)
                     ->max('created_at');
-                $searchTime=substr($time, 0, 10);
 
+                $searchTime=substr($time, 0, 10);
+                
                 $record = DB::table('record')
                     ->select('created_at')
                     ->where('username', '=', $staff[$j]->username)
@@ -40,10 +47,14 @@ class RecordController extends Controller
 
 				$recordNum=count($record);
 
-                if($recordNum==0)   continue;
+                if(empty($recordNum)){
+                    $searchTime="";
+                    $firstRecordTime="";
+                    $lastRecordTime="";
+                }
 				else if($recordNum==1){
 				$firstRecordTime=substr($record[0]->created_at, -8);
-                $lastRecordTime=substr($record[0]->created_at, -8);
+                $lastRecordTime="";
                 }else{
                 $firstRecordTime=substr($record[0]->created_at, -8);
 				$lastRecordTime=substr($record[$recordNum-1]->created_at, -8);
@@ -59,11 +70,12 @@ class RecordController extends Controller
 				);
 				
 				array_push($recordResult, $temp);
+                
 			}
 			
-		//}
+		
 		return response()
-			->json($recordResult, 200);
+			->json(array('count'=> $staffNum,'result'=>$recordResult), 200);
 	}
 
     /**
@@ -139,8 +151,9 @@ class RecordController extends Controller
                 
             array_push($recordResult, $temp);
         }
+        $recordTime = $year."年".$month."月";
 
-		return response()->json($recordResult, 200);
+		return response()->json(array("time"=>$recordTime, "result"=>$recordResult), 200);
 	   
     }
     /**
@@ -151,7 +164,7 @@ class RecordController extends Controller
      */
     public function edit($id)
     {
-		//facebook上線~~~~
+		
 	}
 
     /**

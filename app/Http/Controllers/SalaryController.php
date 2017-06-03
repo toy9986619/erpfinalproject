@@ -18,15 +18,17 @@ class SalaryController extends Controller
     public function index()
 	{
 		$month=date("m", strtotime("-1 month"));
-		$year=date("Y");
-		if($month==12){	$year=$year-1;  }
+		$year=date("Y", strtotime("-1 month"));
 		$time=$year.$month;
+
+        $staff=DB::table('staff')->get();
+        $staffNum = count($staff);
 
 		$salarys = DB::table('salary')
 			->join('staff', 'salary.username', '=', 'staff.username')
 			->select('salary.id', 'salary.salarytime', 'staff.sid', 'salary.staffId', 'salary.username', 'salary.allworktime', 'salary.salary', 'salary.extra', 'salary.allsalary', 'salary.exception','salary.remark')
 			->where('salarytime', '=', $time)->take(10)->get();
-		return response()->json($salarys, 200);
+		return response()->json(array('count'=>$staffNum, 'result'=>$salarys), 200);
 	}
 
     /**
@@ -69,10 +71,10 @@ class SalaryController extends Controller
      */
     public function edit($id)
     {
-			$staff=DB::table('salary')
-				->select('staffId','username','salary','extra','allsalary')
-			->where('id','=',$id)->get();
-			return response()->json($staff,200);
+			$salary=DB::table('salary')
+				->select('salarytime', 'staffId','username','salary','extra','allsalary', 'exception', 'remark')
+			->where('id','=',$id)->first();
+			return response()->json($salary ,200);
     }
 
     /**

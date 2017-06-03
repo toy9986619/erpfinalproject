@@ -39,6 +39,9 @@ Route::get('record','RecordController@index');
 Route::get('recordtest', function(){
 	return view('record');
 });
+Route::get('salarytest', function(){
+	return view('salary');
+});
 
 Route::resource('salary', 'SalaryController');
 Route::get('countSalary', 'WorktimeController@countSalary');

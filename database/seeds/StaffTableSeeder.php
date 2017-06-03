@@ -11,10 +11,9 @@ class StaffTableSeeder extends Seeder
      */
     public function run()
     {
-		DB::table('staff')->truncate();		
-		for($i=1;$i<=10;$i++){
+//		DB::table('staff')->truncate();		
+		for($i=1;$i<=25;$i++){
 			$staff = factory(App\Staff::class)->create([
-				'sid' => $i,
 				'hourSalary' => '133'
 			]);
 		}

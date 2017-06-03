@@ -11,7 +11,8 @@ class RecordSeeder extends Seeder
     public function run(){
 //		DB::table('record')->truncate();
 		/////上班
-		for($i=1;$i<=10;$i++){
+	
+		for($i=1;$i<=25;$i++){
 			DB::table('record')->insert([
 				'staffId'=>DB::table('staff')->where('sid',$i)->value('staffId'),
 				'rfid'=>DB::table('staff')->where('sid',$i)->value('rfid'),
@@ -25,5 +26,8 @@ class RecordSeeder extends Seeder
 				'created_at'=>('2017-06-02 20:00:00'),
 			]);
 		}
+
+
+	 
 	}
 }
