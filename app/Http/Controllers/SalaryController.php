@@ -86,7 +86,7 @@ class SalaryController extends Controller
      */
     public function update(Request $request, $id)
     {
-    	$salary=$request->only('salary', 'extra');
+    	$salary=$request->only('extra', 'remark', 'exception');
 		$pay=DB::table('salary')
 			->where('id','=',$id)
 			->value('salary');

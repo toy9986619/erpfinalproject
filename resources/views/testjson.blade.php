@@ -5,34 +5,27 @@
 <body>
     <div id="tablearea" class="tablearea">
     <table border="1px" id="table1"></table>
-    <p id="editpanel"></p>		
-    <table border="1px" id="table2"></table>
-    <!--
-    <form id="form1"></form> 
-    -->
-    <p id="submitbtn"></p>
+        <div id="staffEdit">
+            <p id="editpanel"></p>		
+            <table border="1px" id="table2"></table>
+            <p id="submitbtn"></p>
+        </div>
     </div>
     <button id="button" onclick="myfunction()">test</button>
     
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script >
+<script>
     $(document).ready(function(){
         getStaff();             
     });
-    //$("button#button").click(function() {
-
     function myfunction(){
-        /**
         var z=0;
          var addbtn = document.createElement('BUTTON');
             var text = document.createTextNode('add'+(z+1));
             addbtn.appendChild(text);
             document.body.appendChild(addbtn);
-        */
-        //$("#table2").empty();
-        //$("#editpanel").empty();
     }
     var LirenG;
     var typeG;
@@ -41,7 +34,6 @@
 
     
     function getStaff(){
-    
     $.ajax({
       url: "http://erpfinalproject.ddns.net:808/staff",
       type: "GET",
@@ -55,7 +47,6 @@
         LirenG = Liren;
         typeG = type;
         type_nameG = type_name;//將三個陣列宣告為全域變數
-          //alert(type.length);
           //alert((Object.keys(Liren[0]).length));
           var t = document.getElementById("table1");
           for(i=0; i<=Liren.length;i++){//畫出表格
@@ -65,15 +56,13 @@
             t.rows[0].cells[j].innerText = type_name[j];
             t.rows[0].cells[j].id = ('type_name'+(j+1));//將type_name的每一行賦予值
             }
-          }
-          
+          } 
           for(i=0; i<Liren.length;i++){//填入json所拿到的資料
               for(j=0;j<type.length;j++){
                 t.rows[i+1].cells[j].innerText = Liren[i][type[j]];
                 t.rows[i+1].cells[j].id = (type[j]+(i+1));
               }
           }
-          
           for(i=0; i<Liren.length;i++){
             var editbtn = document.createElement('BUTTON');
             editbtn.id = ("edit"+Liren[i]["sid"]);
@@ -118,7 +107,7 @@
     function editfunc(btnid){//傳入按鈕的名稱
         var t = document.getElementById("table2");//同樣地,宣告表格Id讓我可以在這裡存取第二個表格
         var id = ((btnid.match(/\d+/g))-1);//因為type陣列跟按鍵id差1所以要減一
-        var btnid_int = (id+1); //按鈕所代表的sid(純數字)
+        var btnid = (id+1); //按鈕所代表的sid(純數字)
         //alert(btnid);
         //alert(id);
         //alert(btnid_int);
@@ -146,7 +135,7 @@
        // document.body.appendChild(form);
         //*************************表格提交重點*************************        
         
-        sidtext = document.createTextNode("您要更改的員工編號為"+LirenG[id][typeG[0]]); //新增sid文字
+        sidtext = document.createTextNode("您要更改的員工編號為"+btnid+"號"); //新增sid文字
         editpanel.appendChild(sidtext);
         /*
         var staffId = document.createElement('input');//staffId的輸入框

@@ -15,7 +15,7 @@
 			getSalary();
 		});
 
-		function getSalary(){
+		function getSalary(callback){
 			$.ajax({
 				url: "http://erpfinalproject.ddns.net:808/salary",
 				type: "GET",
@@ -122,7 +122,13 @@
 				error: function(){
 					alert("error");
 				}
+			}).done(function(){
+				if (callback && typeof(callback) === "function") {
+        			callback();
+    			}
 			});
+
+			
 		}
 
 
@@ -131,7 +137,6 @@
 			$.ajax({
 				url: "http://erpfinalproject.ddns.net:808/salary/"+id+"/edit",
 				type: "GET",
-				//data: pageData,
 				dataType: "json",
 
 				success:function(jsonData){
@@ -163,8 +168,8 @@
 					tablestr += "<td>"+jsonData['username']+"</td>";
 					tablestr += "<td>"+jsonData['salary']+"</td>";
 					tablestr += '<td> <input type="text" name="extra" value="'+jsonData['extra']+'"/></td>';
-					tablestr += '<td> <input type="text" name="extra" value="'+jsonData['remark']+'"/></td>';
-					tablestr += '<td> <input type="text" name="extra" value="'+jsonData['exception']+'"/></td>';
+					tablestr += '<td> <input type="text" name="remark" value="'+jsonData['remark']+'"/></td>';
+					tablestr += '<td> <input type="text" name="exception" value="'+jsonData['exception']+'"/></td>';
 					tablestr += "</tr>";
 					$(tablestr).appendTo($table);
 
@@ -181,6 +186,34 @@
 				}
 			});
 		}
+
+		function saveSalary(id){
+			var formData ={
+				'extra':$('input[name="extra"]').val(),
+				'remark':$('input[name="remark"]').val(),
+				'exception':$('input[name="exception"]').val(),
+			};
+
+			$.ajax({
+				url: "http://erpfinalproject.ddns.net:808/salary/"+id+"",
+				type: "PUT",
+				data: formData,
+				dataType: "json",
+				success: function(jsonData){
+					if(jsonData['status']==1){
+						getSalary(function(){
+							$("#salaryEditSite").append("<p> 成功保存 </p>");}
+						);
+					}
+				},
+				error: function(){
+					alert("saveSalary error");
+				}
+			});
+
+		}
+
+
 	</script>
 </body>
 </html>
