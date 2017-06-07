@@ -6,6 +6,7 @@
     <div id="tablearea" class="tablearea">
     <table border="1px" id="table1"></table>
         <div id="staffEdit">
+        <div id="recordSite"></div>
             <p id="editpanel"></p>		
             <table border="1px" id="table2"></table>
             <p id="submitbtn"></p>
@@ -18,7 +19,7 @@
 
 <script>
     $(document).ready(function(){
-        getStaff();             
+        getStaff(1);             
     });
     function myfunction(){
         var z=0;
@@ -33,13 +34,24 @@
     var editLiren;
 
     
-    function getStaff(){
+    function getStaff(page){
+        var pageData={
+				"page":page,
+			};
     $.ajax({
       url: "http://erpfinalproject.ddns.net:808/staff",
       type: "GET",
+      data: pageData,
       dataType: "json",
       success: function(Liren){
-       // alert("第一個json");
+          recSite = document.getElementById("recordSite");
+          $("#recordSite").empty();
+          tablerec = document.createElement("table");
+          tablerec.setAttribute('id', 'recordTable');
+          tablerec.setAttribute('border', '2px');
+          recSite.appendChild(tablerec);
+          //$table.appendTo($("#recordSite"));
+            // alert("第一個json");
           $("#table1").empty();
         var type = ["sid","staffId","username","phone","erContact","erPhone"];
         var type_name = ["員工編號","員工卡號","員工姓名","電話","緊急聯絡人","緊急連絡人電話","編輯"];
@@ -96,6 +108,22 @@
             t.rows[i+1].cells[6].appendChild(editbtn);
             t.rows[i+1].cells[6].appendChild(delbtn);
           }
+          //確認頁數
+                var recordPage=1;
+               // recordPage=Math.round(jsonData['count']/10);
+
+                //製作頁數
+                for(var i=1; i<=recordPage; i++){
+                    if(i==page){
+                        var pagestr='<a>'+i+'</a>'+"&nbsp;";
+                    }else{
+                        var pagestr='<a href="javascript:void(0)" style="text-decoration:none;" onclick="getRecord('+i+')">'+i+'</a>';
+                    }
+                    $(pagestr).appendTo($("#recordSite"));
+                    $("#recordSite").append("&nbsp;");
+                    //$("#recordSite").innerHTML += "&amp;nbsp;";
+                    //$("tt").appendTo($("#recordSite"));
+                } 
       },
         error:function(){
         alert("Error!");
@@ -117,32 +145,18 @@
             dataType: "json",
             success: function(editLiren_ajax){
                 editLiren = editLiren_ajax;
-                
-        
         var form = document.getElementById('form1');
-        //form.setAttribute('method',"PUT");
-        //form.setAttribute('action',"http://erpfinalproject.ddns.net:808/staff/"+id);  
         var edittype_name = ["員工編號","員工姓名","電話","電子郵件","地址","基本薪資","額外加給"];
         var edittype = ["sid","username","phone","email","address","baseSalary","extraSalary"];
         var editpanel = document.getElementById('editpanel');
         var submitgo = document.createElement('button');    //submit按鈕建立
         submitgo.appendChild(document.createTextNode('submit')); //submit按鈕建立
-        //submitgo.id = ('submitbtn');
-        //submitgo.setAttribute('type','submit');
-        //form.appendChild(submitgo);
         //*************************表格提交重點************************* 
         submitgo.onclick = function (){submitfunc()};
-       // document.body.appendChild(form);
         //*************************表格提交重點*************************        
         
         sidtext = document.createTextNode("您要更改的員工編號為"+btnid+"號"); //新增sid文字
         editpanel.appendChild(sidtext);
-        /*
-        var staffId = document.createElement('input');//staffId的輸入框
-        staffId.setAttribute('type',"text");
-        staffId.setAttribute('name',"staffId");
-        staffId.setAttribute('value',LirenG[id][typeG[1]]);
-        */
         for(var i=0; i<2;i++){//畫出表格
           t.insertRow();
             for(var j=0;j<edittype_name.length;j++){//填入第一行的名稱
@@ -167,7 +181,7 @@
               }
             submit1=document.getElementById("submitbtn");
             submit1.appendChild(submitgo);
-          }
+          }       
             },
             error:function(){
             }
@@ -184,15 +198,7 @@
             "address": $('#address').val(),
             "baseSalary": $('#baseSalary').val(),
             "extraSalary": $('#extraSalary').val(),
-        };
-        /*
-        var formData = [datatype.length];
-        for(var i = 0;i<datatype.length;i++){
-            //formData[i] =    
-            formData[datatype[i]]=$('#'+datatype[i]).val();
-            alert(datatype[i]+" "+formData[datatype[i]]);
-        }*/
-        
+        };    
         var sid=$('#sid').val();
         alert(sid);
         
