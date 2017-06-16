@@ -75,21 +75,32 @@
 							<header>
 								<h2>Staffs</h2>
 							</header>
-							<table border="1px" id="table1"></table>
+							<div id="tablearea" class="tablearea">
+								<table border="1px" id="table1"></table>
+								<p id="pagepanel"></p>
+								<div id="staffEdit">
+								
+								</div>
+							</div>
+							
+							
 							<div id="animatedModal">
 							<p align="right" id="close" class="close-animatedModal"></p>
 							<div class="modal-content">
 							<p id="editpanel"></p>
 							<font size="3">
 							<table border="1px" id="table2"></table>
-							<form id="form1"></form>
+							<p id="submitbtn"></p>
 							</font>
 							</div>
 							</div>
 						<input type="button" id="button" onclick="myfunction()" value="test" />
 						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-						<script src="http://momo.sytes.net:808/json/jsonblade060201.js"> </script>
+						<script src="http://momo.sytes.net:808/json/jsonblade06171201.js"> </script>
 						</div>
+						
+						
+						
 					</section>
 					<section id="record" class="three">
 						<div class="container">
@@ -107,7 +118,7 @@
 							<p align="right" id="close2" class="close-animatedModal2"></p>
 							<div class="modal-content">
 							
-							<font size="3"><b>
+							<font size="4"><b>
 							
 							<div id="recordInfoSite"></div>
 							
@@ -139,7 +150,7 @@
 							<p align="right" id="close3" class="close-animatedModal3"></p>
 							<div class="modal-content">
 							
-							<font size="3"><b>
+							<font size="4"><b>
 							
 								<div id="salaryEditSite"></div>
 							
