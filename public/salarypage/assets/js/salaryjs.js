@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-
-	<div id="salarySite"></div>
-	<div id="salaryEditSite"></div>
-
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		
-		$(document).ready(function(){
+$(document).ready(function(){
 			getSalary(1);
 		});
 
@@ -71,7 +57,7 @@
 						tablestr += "<td>"+data[i]['allsalary']+"</td>";
 						tablestr += "<td>"+data[i]['remark']+"</td>";
 						tablestr += "<td>"+data[i]['exception']+"</td>";
-						tablestr += "<td id=edit"+data[i]['sid']+"></td";
+						tablestr += "<td id=salaryEdit"+data[i]['sid']+"></td";
 						tablestr += "</tr>";
 						
 						$(tablestr).appendTo($table);
@@ -83,7 +69,7 @@
 							return function(){ editSalary(id)};
 						})() );
 						$infoButton.text("edit"+salaryId);
-						$infoButton.appendTo("#edit"+salaryId+"");
+						$infoButton.appendTo("#salaryEdit"+salaryId+"");
 					}
 					
 					if(dataCount<10){
@@ -223,8 +209,3 @@
 			});
 
 		}
-
-
-	</script>
-</body>
-</html>

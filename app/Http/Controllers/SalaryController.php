@@ -15,11 +15,12 @@ class SalaryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
 	{
 		$month=date("m", strtotime("-1 month"));
 		$year=date("Y", strtotime("-1 month"));
 		$time=$year.$month;
+        $page=$request->input('page')-1;
 
         $staff=DB::table('staff')->get();
         $staffNum = count($staff);
@@ -27,7 +28,7 @@ class SalaryController extends Controller
 		$salarys = DB::table('salary')
 			->join('staff', 'salary.username', '=', 'staff.username')
 			->select('salary.id', 'salary.salarytime', 'staff.sid', 'salary.staffId', 'salary.username', 'salary.allworktime', 'salary.salary', 'salary.extra', 'salary.allsalary', 'salary.exception','salary.remark')
-			->where('salarytime', '=', $time)->take(10)->get();
+			->where('salarytime', '=', $time)->skip($page*10)->take(10)->get();
 		return response()->json(array('count'=>$staffNum, 'result'=>$salarys), 200);
 	}
 

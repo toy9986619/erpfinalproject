@@ -97,6 +97,9 @@
 								<h2>Records</h2>
 							</header>
 
+							<div id="recordSite"></div>
+							<div id="recordInfoSite"></div>
+
 						</div>
 					</section>
 					<section id="salary" class="four">
@@ -104,6 +107,9 @@
 							<header>
 								<h2>Salary</h2>
 							</header>
+
+							<div id="salarySite"></div>
+							<div id="salaryEditSite"></div>
 
 						</div>
 					</section>
@@ -130,7 +136,9 @@
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="{{ URL::asset('/homepage/assets/js/main.js') }}"></script>
 			<script src="{{ URL::asset('/homepage/assets/js/animatedModal.js') }}"></script>
-			
+			<script src="{{ URL::asset('/recordpage/assets/js/recordjs.js') }}"></script>
+			<script src="{{ URL::asset('/salarypage/assets/js/salaryjs.js') }}"></script>
+
 			<script>
 				if(document.getElementById("demo01")){
 					document.getElementById("demo01").onclick = function(){
