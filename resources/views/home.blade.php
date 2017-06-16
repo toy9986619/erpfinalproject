@@ -98,7 +98,28 @@
 							</header>
 
 							<div id="recordSite"></div>
+							
+							
+							
+							
+							
+							<div id="animatedModal2">
+							<p align="right" id="close2" class="close-animatedModal2"></p>
+							<div class="modal-content">
+							
+							<font size="3"><b>
+							
 							<div id="recordInfoSite"></div>
+							
+							</b></font>
+							</div>
+							</div>
+							
+							
+							
+							
+							
+							
 
 						</div>
 					</section>
@@ -107,9 +128,29 @@
 							<header>
 								<h2>Salary</h2>
 							</header>
-
+							
+							<font size="4">
 							<div id="salarySite"></div>
-							<div id="salaryEditSite"></div>
+							</font>
+							
+							
+							
+							<div id="animatedModal3">
+							<p align="right" id="close3" class="close-animatedModal3"></p>
+							<div class="modal-content">
+							
+							<font size="3"><b>
+							
+								<div id="salaryEditSite"></div>
+							
+							</b></font>
+							</div>
+							</div>
+							
+							
+							
+							
+							
 
 						</div>
 					</section>
@@ -120,6 +161,8 @@
 			<div id="footer">
 				<!--invisible button-->
 					<a id="demo01" href="#animatedModal"></a><br>
+					<a id="demo02" href="#animatedModal2"></a><br>
+					<a id="demo03" href="#animatedModal3"></a><br>
 				<!-- Copyright -->
 					<ul class="copyright">
 						<li>&copy; TAIWAN No.1!!! All rights reserved.</li>
@@ -142,7 +185,17 @@
 			<script>
 				if(document.getElementById("demo01")){
 					document.getElementById("demo01").onclick = function(){
-					document.getElementById("close").innerHTML = '<i class="fa fa-close"></i>';
+					document.getElementById("close").innerHTML = '<i class="fa fa-close">　</i>';
+					}
+				}
+				if(document.getElementById("demo02")){
+					document.getElementById("demo02").onclick = function(){
+					document.getElementById("close2").innerHTML = '<i class="fa fa-close">　</i>';
+					}
+				}
+				if(document.getElementById("demo03")){
+					document.getElementById("demo03").onclick = function(){
+					document.getElementById("close3").innerHTML = '<i class="fa fa-close">　</i>';
 					}
 				}
 			</script>

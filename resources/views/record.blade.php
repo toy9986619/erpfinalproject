@@ -92,7 +92,7 @@
 
 					//確認頁數
 					var recordPage=1;
-					recordPage=Math.round(jsonData['count']/10);
+					recordPage=Math.ceil(jsonData['count']/10);
 
 					//製作頁數
 					for(var i=1; i<=recordPage; i++){

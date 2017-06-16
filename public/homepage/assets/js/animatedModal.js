@@ -15,10 +15,11 @@
         var settings = $.extend({
             modalTarget:'animatedModal', 
             position:'fixed', 
-            width:'80%', 
+            width:'80.5%',
             height:'100%', 
             top:'0px', 
-            left:'300px', 
+            left:'19.5%', 
+			right:'0%',
             zIndexIn: '9999',  
             zIndexOut: '-9999',  
             color: '#b5d4d3', 

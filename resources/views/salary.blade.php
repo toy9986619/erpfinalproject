@@ -71,7 +71,7 @@
 						tablestr += "<td>"+data[i]['allsalary']+"</td>";
 						tablestr += "<td>"+data[i]['remark']+"</td>";
 						tablestr += "<td>"+data[i]['exception']+"</td>";
-						tablestr += "<td id=edit"+data[i]['sid']+"></td";
+						tablestr += "<td id=salaryEdit"+data[i]['sid']+"></td";
 						tablestr += "</tr>";
 						
 						$(tablestr).appendTo($table);
@@ -83,7 +83,7 @@
 							return function(){ editSalary(id)};
 						})() );
 						$infoButton.text("edit"+salaryId);
-						$infoButton.appendTo("#edit"+salaryId+"");
+						$infoButton.appendTo("#salaryEdit"+salaryId+"");
 					}
 					
 					if(dataCount<10){
@@ -109,7 +109,7 @@
 
 					//確認頁數
 					var salaryPage=1;
-					salaryPage=Math.round(jsonData['count']/10);
+					salaryPage=Math.ceil(jsonData['count']/10);
 
 					//製作頁數
 					for(var i=1; i<=salaryPage; i++){

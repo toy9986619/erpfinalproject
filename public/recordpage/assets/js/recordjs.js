@@ -55,7 +55,18 @@ $(document).ready(function(){
 						$infoButton = $(document.createElement('button'));
 						$infoButton.click( (function(){
 							var id = staffId;
-							return function(){ getInfo(id)};
+							return function(){ 
+								getInfo(id)
+								
+								//彈窗開始
+								$("#demo02").animatedModal({
+									modalTarget:'animatedModal2'
+								});
+	                    		lnk = document.getElementById("demo02");
+ 	                    		lnk.click();
+ 	                    		//彈窗結束
+
+							};
 						})() );
 						$infoButton.text("info"+staffId);
 						$infoButton.appendTo("#info"+staffId+"");
@@ -78,7 +89,7 @@ $(document).ready(function(){
 
 					//確認頁數
 					var recordPage=1;
-					recordPage=Math.round(jsonData['count']/10);
+					recordPage=Math.ceil(jsonData['count']/10);
 
 					//製作頁數
 					for(var i=1; i<=recordPage; i++){

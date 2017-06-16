@@ -66,7 +66,19 @@ $(document).ready(function(){
 						$infoButton = $(document.createElement('button'));
 						$infoButton.click( (function(){
 							var id = salaryId;
-							return function(){ editSalary(id)};
+							return function(){ 
+
+								editSalary(id)
+
+								//彈窗開始
+								$("#demo03").animatedModal({
+									modalTarget:'animatedModal3'
+								});
+	                    		lnk = document.getElementById("demo03");
+ 	                    		lnk.click();
+ 	                    		//彈窗結束
+
+							};
 						})() );
 						$infoButton.text("edit"+salaryId);
 						$infoButton.appendTo("#salaryEdit"+salaryId+"");
@@ -95,7 +107,7 @@ $(document).ready(function(){
 
 					//確認頁數
 					var salaryPage=1;
-					salaryPage=Math.round(jsonData['count']/10);
+					salaryPage=Math.ceil(jsonData['count']/10);
 
 					//製作頁數
 					for(var i=1; i<=salaryPage; i++){

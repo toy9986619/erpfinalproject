@@ -14,10 +14,14 @@ class StaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-		$users = DB::table('staff')->select('sid', 'staffId', 'username', 'phone', 'erContact', 'erPhone')->take(10)->get();
-        return response()->json($users, 200); 
+        $page = $request->input('page')-1;
+        $staff = DB::table('staff')->get();
+        $staffNum = count($staff);
+
+		$users = DB::table('staff')->select('sid', 'staffId', 'username', 'phone', 'erContact', 'erPhone')->skip($page*10)->take(10)->get();
+        return response()->json(array('count' => $staffNum, 'result'=>$users), 200); 
     }
 
     /**
