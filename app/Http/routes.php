@@ -47,6 +47,4 @@ Route::resource('salary', 'SalaryController');
 Route::get('countSalary', 'WorktimeController@countSalary');
 Route::get('record','RecordController@index');
 Route::get('record/{sid}', 'RecordController@show');
-//Route::get('edit/{id}','SalaryController@edit');
-//Route::get('update/{id}','SalaryController@update');
-
+Route::put('recountsalary/{id}', 'WorktimeController@reCountSalary');

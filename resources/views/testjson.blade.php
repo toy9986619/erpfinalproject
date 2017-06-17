@@ -5,6 +5,7 @@
 <body>
     <div id="tablearea" class="tablearea">
     <table border="1px" id="table1"></table>
+    <p id="addpanel"></p>
     <p id="pagepanel"></p>
         <div id="staffEdit">
             <p id="editpanel"></p>		
@@ -29,7 +30,6 @@
             document.body.appendChild(addbtn);
     }
     var editLiren;
-    
     var nowPage=1;
     
     function getStaff(page, callback){
@@ -49,6 +49,7 @@
           
        // alert("第一個json");
           $("#table1").empty();
+          $("#addpanel").empty();
           $("#pagepanel").empty();
         var type = ["sid","staffId","username","phone","erContact","erPhone"];
         var type_name = ["員工編號","員工卡號","員工姓名","電話","緊急聯絡人","緊急連絡人電話","編輯"];
@@ -80,12 +81,12 @@
           
           for(i=0; i<Liren.length;i++){
             var editbtn = document.createElement('BUTTON');
-            editbtn.id = ("edit"+Liren[i]["sid"]);
-            var text = document.createTextNode(editbtn.id);
-            editbtn.appendChild(text);
             var delbtn = document.createElement('BUTTON');
-            delbtn.id = ("del"+Liren[i]["sid"]);
+            var text = document.createTextNode('edit');
             var text2 = document.createTextNode('del');
+            editbtn.id = ("edit"+Liren[i]["sid"]);
+            delbtn.id = ("del"+Liren[i]["sid"]);
+            editbtn.appendChild(text);
             delbtn.appendChild(text2);
             editbtn.onclick = (function(){
                 var nowId = editbtn.id;
@@ -101,28 +102,21 @@
                 })
             })()  
             t.rows[i+1].cells[6].appendChild(editbtn);
-            t.rows[i+1].cells[6].appendChild(delbtn);
-          //alert(dataCount);
-              /**
-              if(dataCount<10){//計算如果資料有缺少就把她補滿
-                for(var j=dataCount+1; j<10; j++){
-                    t.insertRow(j);
-                    for(var i=0;i<type.length;i++){
-                        t.rows[j].insertCell(i);
-                        t.rows[j].cells[i].innerText="&nbsp;";
-                        alert(i);
-                    }
-                }
-              }
-              */
-              
+            t.rows[i+1].cells[6].appendChild(delbtn); 
           }
           
-          
+            //製作並放置add按鈕
+            var addbtn = document.createElement('BUTTON');
+            var addtext = document.createTextNode('add');
+            var enter = document.createTextNode('\n');
+            var addpanel = document.getElementById('addpanel');
+            addbtn.id = "addnewstaff";
+            addbtn.appendChild(addtext);
+            addpanel.appendChild(addbtn);
+            addbtn.onclick = (function(){addfunc()});
             //確認頁數
             var salaryPage=1;
             salaryPage=Math.ceil(jsonData['count']/10);
-
             //製作頁數
             for(var i=1; i<=salaryPage; i++){
                 if(i==page){
@@ -175,7 +169,7 @@
         var submitgo = document.createElement('button');    //submit按鈕建立
         submitgo.appendChild(document.createTextNode('submit')); //submit按鈕建立
         //*************************表格提交重點************************* 
-        submitgo.onclick = function (){submitfunc()};
+        submitgo.onclick = function (){submitfunc(1)};
         //*************************表格提交重點*************************        
         sidtext = document.createTextNode("您要更改的員工編號為"+btnid+"號"); //新增sid文字
         editpanel.appendChild(sidtext);
@@ -188,7 +182,9 @@
             }
           }
         for(i=0; i<1;i++){//填入json所拿到的資料
-              for(j=0;j<edittype.length;j++){
+            t.rows[i+1].cells[0].innerText = editLiren[edittype[0]];
+            t.rows[i+1].cells[0].id = ('edit'+edittype[0]);
+              for(j=1;j<edittype.length;j++){
                 var editnow = document.createElement('input');//給使用者編輯的文字輸入框
                 editnow.setAttribute('type','text');
                 editnow.setAttribute('name',edittype[j]);
@@ -196,40 +192,112 @@
                 editnow.setAttribute('limitlength',2);
                 editnow.id = (edittype[j]);
                 t.rows[i+1].cells[j].appendChild(editnow);
-                t.rows[i+1].cells[j].id = (edittype[j]+'G'+(i+1));
+                t.rows[i+1].cells[j].id = ('edit'+edittype[j]);
               }
-            submit1=document.getElementById("submitbtn");
-            submit1.appendChild(submitgo);
+            editsubmit=document.getElementById("submitbtn");
+            editsubmit.appendChild(submitgo);
           }
             },
             error:function(){
             }
         });
     }
-    function submitfunc(){
-        var datatype = ["username","phone","email","address","baseSalary","extraSalary"];
-        var formData={
-            "username": $('#username').val(),
-            "phone": $('#phone').val(),
-            "email": $('#email').val(),
-            "address": $('#address').val(),
-            "baseSalary": $('#baseSalary').val(),
-            "extraSalary": $('#extraSalary').val(),
-        };
-        var sid=$('#sid').val();
-        alert(sid);
-        
-        $.ajax({
-          url:"http://erpfinalproject.ddns.net:808/staff/"+sid+"",
-          type:"PUT",
-          data: formData,
-          dataType: "json",
-        success:function(data){
-            $("#table2").empty();
-            getStaff();
-        },
-        error:function(){alert("error");},
-        });
+    
+    
+    function addfunc(){
+        $("#table2").empty();
+        $("#submitbtn").empty();
+        $("#editpanel").empty();
+        var addtype =["staffId","rfid","username","phone","email","address","erContact","erPhone","baseSalary","extraSalary"];
+        var addtype_name =["員工卡號","RFID","員工姓名","電話","電子郵件","地址","erContact","erPhone","基本薪資","額外薪資"];
+        var t = document.getElementById("table2");
+        for(i=0;i<2;i++){
+        t.insertRow();
+            for(j=0;j<addtype_name.length;j++){
+                if(i==0){
+                    t.rows[i].insertCell(j);
+                    t.rows[i].cells[j].innerText = addtype_name[j];
+                }
+                else if(i==1){
+                    t.rows[i].insertCell(j);
+                    addinput = document.createElement('input');//給使用者編輯的文字輸入框
+                    addinput.setAttribute('type','text');
+                    addinput.setAttribute('limitlength',2);
+                    addinput.setAttribute('name',addtype[j]);
+                    //addinput.setAttribute('onfocus',addtype_name[j]); //??????????????????????????????????????????????????????正在研究中的功能                
+                    addinput.id = (addtype[j]);
+                    t.rows[i].cells[j].appendChild(addinput);
+                }
+                t.rows[i].cells[j].id = ('add'+'_'+addtype[j]);
+            }
+        }
+        submitgo = document.createElement('BUTTON');
+        submitgo.appendChild(document.createTextNode('submit'));
+        //*************************表格提交重點************************* 
+        submitgo.onclick = function(){submitfunc(2)};
+        //*************************表格提交重點************************* 
+        addsubmit = document.getElementById("submitbtn");
+        addsubmit.appendChild(submitgo);
+    }
+    
+    function submitfunc(choose){
+        if(choose==1){
+            var edittype = ["username","phone","email","address","baseSalary","extraSalary"];//參考用
+            var formData={
+                "username": $('#username').val(),
+                "phone": $('#phone').val(),
+                "email": $('#email').val(),
+                "address": $('#address').val(),
+                "baseSalary": $('#baseSalary').val(),
+                "extraSalary": $('#extraSalary').val(),
+            };
+            var sid=$('#editsid').text();
+
+            $.ajax({
+              url:"http://erpfinalproject.ddns.net:808/staff/"+sid+"",
+              type:"PUT",
+              data: formData,
+              dataType: "json",
+            success:function(data){
+                $("#submitbtn").empty();
+                $("#editpanel").empty();
+                $("#table2").empty();
+                alert('保存成功');
+                getStaff(Math.ceil(sid/10));
+            },
+            error:function(){alert("error");},
+            });
+        }
+        else if(choose==2){
+             var addtype =["staffId","rfid","username","phone","email","address","erContact","erPhone","baseSalary","extraSalary"];//參考用
+             var formData={
+                "staffId":$('#staffId').val(),
+                "rfid":$('#rfid').val(),
+                "username":$('#username').val(),
+                "phone":$('#phone').val(),
+                "email":$('#email').val(),
+                "address":$('#address').val(),
+                "erContact":$('#erContact').val(),
+                "erPhone":$('#erPhone').val(),
+                "baseSalary":$('#baseSalary').val(),
+                "extraSalary":$('#extraSalary').val(),
+            };
+            alert(formData);
+            //if(($('#username').val())=""||($('#phone').val())=""||($('#email').val())=""){alert(您有必填資料未填寫完整!!);}
+            $.ajax({
+              url:"http://erpfinalproject.ddns.net:808/staff",
+              type:"POST",
+              data: formData,
+              dataType:"json",
+            succes:function(data){
+                $("#submitbtn").empty();
+                $("#editpanel").empty();
+                $("#table2").empty();
+                alert("保存成功!!");  
+            },
+            error:function(){alert("error");},
+            });
+        }
         
     }
     </script>   
