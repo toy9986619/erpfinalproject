@@ -8,7 +8,10 @@
 	<div id="recordInfoSite"></div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('recordpage/assets/css/jquery.datepick.css') }}"> 
+	<script type="text/javascript" src="{{ URL::asset('recordpage/assets/js/jquery.plugin.js') }}"></script> 
+	<script type="text/javascript" src="{{ URL::asset('recordpage/assets/js/jquery.datepick.js') }}"></script>
+	<script type="text/javascript" src="{{ URL::asset('recordpage/assets/js/jquery.datepick-zh-TW.js') }}"></script>
 	<script type="text/javascript">
 		
 
@@ -103,11 +106,10 @@
 						}
 						$(pagestr).appendTo($("#recordSite"));
 						$("#recordSite").append("&nbsp;");
-						//$("#recordSite").innerHTML += "&amp;nbsp;";
-						//$("tt").appendTo($("#recordSite"));
+						
 					}
 
-				
+
 
 
 				},
@@ -120,10 +122,19 @@
 
 
 		
-		function getInfo(id){
+		function getInfo(id, searchDate){
+			var dateData;
+			if(typeof(searchDate) != "undefined"){
+				//alert(searchDate);
+				dateData={
+					"date": searchDate,
+				};
+			}
+
 			$.ajax({
 				url: "http://erpfinalproject.ddns.net:808/record/"+id+"",
 				type: "GET",
+				data: dateData,
 				dataType: "json",
 
 				success: function(jsonData){
@@ -160,7 +171,26 @@
 						tablestr += "</tr>";
 					
 						$(tablestr).appendTo($table);
+
 					}
+
+					$('#recordInfoSite').append("<br>");
+					var searchHTML='<p id="searchP"> 查詢指定年月時間: <input id="datePicker" /> </p>';
+					$('#recordInfoSite').append(searchHTML);
+					if(typeof(searchDate) != "undefined"){
+						$("#datePicker").val(searchDate);
+					}
+					$("#datePicker").datepick({dateFormat: 'yyyy-mm'}, $.datepick.regionalOptions['zh-TW']);
+					
+					$searchButton = $(document.createElement('button'));
+					$searchButton.text("查詢");
+					$searchButton.click( function(){
+						var searchDate = $("#datePicker").val();
+						//alert(id+" "+searchDate);
+						getInfo(id, searchDate);
+					} );
+					$('#searchP').append($searchButton);
+
 				},
 
 				error: function(){
@@ -168,6 +198,7 @@
 				}
 			});
 		}
+		
 		
 		
 			

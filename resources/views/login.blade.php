@@ -24,7 +24,7 @@
 
 		<!-- Signup Form -->
 			<form id="signup-form" method="post" action="/login">
-				<br/><input type="text" name="user" id="user" placeholder="User ID"  style="width:288px"/><br/>
+				<br/><input type="text" name="user" id="user" placeholder="User Email"  style="width:288px"/><br/>
 				<input type="password" name="pswd" id="pswd" placeholder="Password" style="width:288px"/><br/>
 				<input type="submit" value="Sign in" style="width:88px"/><br/><br/>
 				<input type="hidden" name="_token" value="{{ csrf_token() }}" />

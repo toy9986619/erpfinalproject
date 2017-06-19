@@ -19,32 +19,49 @@
 
 		<!-- Header -->
 			<div id="header">
+			
+				<style type="text/css">
+						#st{
+							background-image:url('{{ URL::asset('/homepage/images/LOGOF.png') }}');
+							background-repeat:no-repeat;
+							background-position:right bottom;
+						}
+				</style>
 
-				<div class="top">
+				<div class="top" id="st">
 
 					<!-- Logo -->
 						<div id="logo">
 							<span class="image avatar48"><img src="{{ URL::asset('/homepage/images/avatar.jpg') }}" alt="" /></span>
 							<h1 id="title">滷味攻城屍</h1>
-							<p>爆肝GG輪班新人</p>
+							<p>爆肝GG輪班新人．<a href="http://erpfinalproject.ddns.net:808/logout" >Sign out</a></p>
 						</div>
 
 					<!-- Nav -->
+
 						<nav id="nav">
 							<ul>
 								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
 								<li><a href="#staff" id="staff-link" class="skel-layers-ignoreHref"><span class="icon fa-user">Staffs</span></a></li>
 								<li><a href="#record" id="record-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Records</span></a></li>
 								<li><a href="#salary" id="salary-link" class="skel-layers-ignoreHref"><span class="icon fa-usd">Salary</span></a></li>
+								<li><a href="#admin" id="admin-link" class="skel-layers-ignoreHref"><span class="icon fa-key">Admin</span></a></li>
 								
 							</ul>
 						</nav>
+						<div>
+						<!--invisible button-->
+					<a id="demo01" href="#animatedModal"></a><br>
+					<a id="demo02" href="#animatedModal2"></a><br>
+					<a id="demo03" href="#animatedModal3"></a><br>
+					<a id="demo04" href="#animatedModal4"></a><br>
+						</div>
 
 				</div>
 
-				<div class="bottom">
+				<!--<div class="bottom">
 					<img src="{{ URL::asset('/homepage/images/LOGOF.png') }}">
-				</div>
+				</div>-->
 
 			</div>
 
@@ -77,26 +94,27 @@
 							</header>
 							<div id="tablearea" class="tablearea">
 								<table border="1px" id="table1"></table>
+								<p id="addpanel"></p>
 								<p id="pagepanel"></p>
-								<div id="staffEdit">
 								
-								</div>
 							</div>
+							
+							
 							
 							
 							<div id="animatedModal">
 							<p align="right" id="close" class="close-animatedModal"></p>
 							<div class="modal-content">
-							<p id="editpanel"></p>
-							<font size="3">
-							<table border="1px" id="table2"></table>
-							<p id="submitbtn"></p>
-							</font>
+								<div id="staffEdit">
+								<p id="editpanel"></p>
+								<font size="3">
+								<table border="1px" id="table2"></table>
+								<p id="submitbtn"></p>
+								</div>
+								</font>
 							</div>
 							</div>
-						<input type="button" id="button" onclick="myfunction()" value="test" />
-						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-						<script src="http://momo.sytes.net:808/json/jsonblade06171201.js"> </script>
+						
 						</div>
 						
 						
@@ -158,22 +176,43 @@
 							</div>
 							</div>
 							
-							
-							
-							
+							<div id="salaryActionSite"></div>
+							<div id="salaryMsgSite"></div>
+
 							
 
 						</div>
 					</section>
+					
+					<section id="admin" class="five">
+						<div class="container">
+							<header>
+							<h2>Admin</h2>
+							</header>
+						
+							<div id="adminSite"></div>
+							
+							
+							<div id="animatedModal4">
+							<p align="right" id="close4" class="close-animatedModal4"></p>
+							<div class="modal-content">
+							<div id="adminEditSite"></div>
+							</div>
+							</div>
+							
+							<div id="adminMsgSite"></div>
+							<div id="adminActionSite"></div>
+							
+						
+						</div>
+					</section>
+					
 
 			</div>
 
 		<!-- Footer -->
 			<div id="footer">
-				<!--invisible button-->
-					<a id="demo01" href="#animatedModal"></a><br>
-					<a id="demo02" href="#animatedModal2"></a><br>
-					<a id="demo03" href="#animatedModal3"></a><br>
+				
 				<!-- Copyright -->
 					<ul class="copyright">
 						<li>&copy; TAIWAN No.1!!! All rights reserved.</li>
@@ -182,6 +221,7 @@
 			</div>
 
 		<!-- Scripts -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<script src="{{ URL::asset('/homepage/assets/js/jquery.min.js') }}"></script>
 			<script src="{{ URL::asset('/homepage/assets/js/jquery.scrolly.min.js') }}"></script>
 			<script src="{{ URL::asset('/homepage/assets/js/jquery.scrollzer.min.js') }}"></script>
@@ -190,8 +230,18 @@
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="{{ URL::asset('/homepage/assets/js/main.js') }}"></script>
 			<script src="{{ URL::asset('/homepage/assets/js/animatedModal.js') }}"></script>
+			<link rel="stylesheet" type="text/css" href="{{ URL::asset('recordpage/assets/css/jquery.datepick.css') }}"> 
+			<script type="text/javascript" src="{{ URL::asset('recordpage/assets/js/jquery.plugin.js') }}"></script> 
+			<script type="text/javascript" src="{{ URL::asset('recordpage/assets/js/jquery.datepick.js') }}"></script>
+			<script type="text/javascript" src="{{ URL::asset('recordpage/assets/js/jquery.datepick-zh-TW.js') }}"></script>
 			<script src="{{ URL::asset('/recordpage/assets/js/recordjs.js') }}"></script>
 			<script src="{{ URL::asset('/salarypage/assets/js/salaryjs.js') }}"></script>
+			<script src="{{ URL::asset('/adminpage/assets/js/adminjs.js') }}"></script>
+			
+			<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.js"></script>
+			<script type="text/javascript" src="{{ URL::asset('staffpage/assets/jsonblade06190155.js') }}"></script>    
+			<script type="text/javascript" src="{{ URL::asset('staffpage/assets/jqueryui/jquery-ui.js') }}"></script>
+			<link rel="stylesheet" type="text/css" href="{{ URL::asset('staffpage/assets/jqueryui/jquery-ui.css') }}">
 
 			<script>
 				if(document.getElementById("demo01")){
@@ -207,6 +257,11 @@
 				if(document.getElementById("demo03")){
 					document.getElementById("demo03").onclick = function(){
 					document.getElementById("close3").innerHTML = '<i class="fa fa-close">　</i>';
+					}
+				}
+				if(document.getElementById("demo04")){
+					document.getElementById("demo04").onclick = function(){
+					document.getElementById("close4").innerHTML = '<i class="fa fa-close">　</i>';
 					}
 				}
 			</script>

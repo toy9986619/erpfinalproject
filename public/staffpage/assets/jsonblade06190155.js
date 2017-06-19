@@ -1,28 +1,4 @@
-<html>
-<head>
-     <!--20170512 07:00-->
-</head>
-<body>
-    <div id="tablearea" class="tablearea">
-    <table border="1px" id="table1"></table>
-    <p id="addpanel"></p>
-    <p id="pagepanel"></p>
-        <div id="staffEdit">
-            <p id="editpanel"></p>		
-            <table border="1px" id="table2"></table>
-            <p id="submitbtn"></p>
-        </div>
-    </div>
-    <button id="button" onclick="myfunction()">test</button>
-    
-    
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="{{ URL::asset('staffpage/assets/jqueryui/jquery-ui.css') }}">
-<script type="text/javascript" src="{{ URL::asset('staffpage/assets/jqueryui/jquery-ui.js') }}"></script>
-
-<script>
-    $(document).ready(function(){
+$(document).ready(function(){
         getStaff(1);
     });
     function myfunction(){
@@ -122,7 +98,12 @@
             addbtn.id = "addnewstaff";
             addbtn.appendChild(addtext);
             addpanel.appendChild(addbtn);
-            addbtn.onclick = (function(){addfunc()});
+            addbtn.onclick = function(){
+				addfunc();
+				$("#demo01").animatedModal();
+					lnk = document.getElementById("demo01"); 
+					lnk.click();
+			}
             //確認頁數
             var salaryPage=1;
             salaryPage=Math.ceil(jsonData['count']/10);
@@ -182,7 +163,7 @@
                     });
                 },
                 '取消':function() {
-                 $('#dps').remove();
+                $(this).dialog("close");
                 }
               }
              });
@@ -256,7 +237,6 @@
         var addtype =["staffId","rfid","username","phone","email","address","erContact","erPhone","baseSalary","extraSalary"];
         var addtype_name =["員工卡號","RFID","員工姓名","電話","電子郵件","地址","erContact","erPhone","基本薪資","額外薪資"];
         var t = document.getElementById("table2");
-        
         for(i=0;i<4;i++){
         t.insertRow();
             for(j=0;j<(addtype_name.length)/2;j++){
@@ -290,8 +270,6 @@
                 t.rows[i].cells[j].id = ('add'+'_'+addtype[j+5]);
             }
         }
-        
-        
         submitgo = document.createElement('BUTTON');
         submitgo.appendChild(document.createTextNode('submit'));
         //*************************表格提交重點************************* 
@@ -364,7 +342,3 @@
         }
         
     }
-    </script>   
-    
-    </body>
-</html>

@@ -20,7 +20,7 @@ namespace App\Http\Controllers;
 
 
 			$validator=Validator::make($request->all(),
-			   ['user'=>'required|email','pswd'=>'required'] );
+			   ['user'=>'required','pswd'=>'required'] );
 			
 			if($validator->passes()){
 			   $attempt=Auth::attempt(
@@ -33,15 +33,12 @@ namespace App\Http\Controllers;
 			//	   ->withErrors( ['fail'=>'帳號或密碼錯誤'] );
 			}
 			return redirect('/login')->withErrors(['status'=>'error']);
-		   /*return redirect('login')
-			   ->withErrors($validator)
-			   ->withInput(Input::except('password'));*/
+		   
 	   }
 
-	   /*public function logout(){
+	   public function logout(){
 	  		Auth::logout();
-			return redirect('login');
-	   *
-	   }*/
+			return redirect('/login');
+	   }
 	}
 

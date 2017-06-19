@@ -1,5 +1,13 @@
-$(document).ready(function(){
+
+		$(document).ready(function(){
 			getSalary(1);
+
+			$countButton = $(document.createElement('button'));
+			$countButton.click( function(){
+				countSalary();
+			} );
+			$countButton.text("計算薪水");
+			$countButton.appendTo("#salaryActionSite");
 		});
 
 		var nowPage=1;
@@ -67,9 +75,7 @@ $(document).ready(function(){
 						$infoButton.click( (function(){
 							var id = salaryId;
 							return function(){ 
-
 								editSalary(id)
-
 								//彈窗開始
 								$("#demo03").animatedModal({
 									modalTarget:'animatedModal3'
@@ -77,7 +83,6 @@ $(document).ready(function(){
 	                    		lnk = document.getElementById("demo03");
  	                    		lnk.click();
  	                    		//彈窗結束
-
 							};
 						})() );
 						$infoButton.text("edit"+salaryId);
@@ -213,6 +218,27 @@ $(document).ready(function(){
 						getSalary(nowPage, function(){
 							$("#salaryEditSite").append("<p> 成功保存 </p>");}
 						);
+					}
+				},
+				error: function(){
+					alert("saveSalary error");
+				}
+			});
+
+		}
+
+		function countSalary(){
+			$.ajax({
+				url: "http://erpfinalproject.ddns.net:808/countSalary",
+				type: "get",
+				dataType: "json",
+				success: function(jsonData){
+					if(jsonData['status']==1){
+						getSalary(1, function(){
+							$("#salaryMsgSite").append("<p> 成功計薪 </p>");}
+						);
+					}else{
+						$("#salaryMsgSite").append("<p> 失敗，已有薪水資料 </p>");
 					}
 				},
 				error: function(){

@@ -14,37 +14,42 @@
 Route::get('/', function () {
     return view('welcome');
 });
-/*Route::get('test', function(){
-	return "hi";
-});*/
-Route::get('testjson', function(){
-	return view('testjson');
-});
-Route::get('salaryjson', function(){
-	return view('salaryjson');
-});
-Route::resource('staff', 'StaffController');
-Route::get('/test', 'TestController@jsontest');
 
-Route::get('home', function(){
-	return view('home');
-});
-/*Route::get('log-in', function(){
-	return view('login');
-});*/
+//Route::group(['middleware'=>'auth'], function(){
+	Route::get('testjson', function(){
+		return view('testjson');
+	});
+	Route::get('salaryjson', function(){
+		return view('salaryjson');
+	});
+	Route::resource('staff', 'StaffController');
+	Route::get('/test', 'TestController@jsontest');
+
+	Route::get('home', function(){
+		return view('home');
+	});
+
+	Route::get('record','RecordController@index');
+	Route::get('recordtest', function(){
+		return view('record');
+	});
+	Route::get('salarytest', function(){
+		return view('salary');
+	});
+	Route::get('admintest', function(){
+		return view('admin');
+	});
+
+	Route::resource('salary', 'SalaryController');
+	Route::get('countSalary', 'WorktimeController@countSalary');
+	Route::get('record','RecordController@index');
+	Route::get('record/{sid}', 'RecordController@show');
+	Route::put('recountsalary/{id}', 'WorktimeController@reCountSalary');
+	Route::resource('admin', 'UserController');
+
+//});
+
 Route::get('login', 'LoginController@show');
 Route::post('login', 'LoginController@login');
-//Route::get('logout', 'LoginController@logout');
-Route::get('record','RecordController@index');
-Route::get('recordtest', function(){
-	return view('record');
-});
-Route::get('salarytest', function(){
-	return view('salary');
-});
+Route::get('logout', 'LoginController@logout');
 
-Route::resource('salary', 'SalaryController');
-Route::get('countSalary', 'WorktimeController@countSalary');
-Route::get('record','RecordController@index');
-Route::get('record/{sid}', 'RecordController@show');
-Route::put('recountsalary/{id}', 'WorktimeController@reCountSalary');

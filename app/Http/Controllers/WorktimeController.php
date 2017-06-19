@@ -17,6 +17,13 @@ class WorktimeController extends Controller
 		$month=date("m", strtotime("-1 month")); 				//get month(last month)
 		$days = date('t', mktime(0, 0, 0, $month, 1, $year));	//get days
 
+		$DBsalary = DB::table('salary')
+					->where('salarytime', "$year$month")
+					->first();
+		if(isset($DBsalary)){
+			return response()->json(['status'=>0, 'error'=>'already count'], 200);
+		}
+
 		//for all staff
 		for($i=0; $i<$staffNum; $i++){		
 			$exception="";		//record days with error
@@ -140,7 +147,7 @@ class WorktimeController extends Controller
 			
 		}
 	
-		echo "done";
+		return response()->json(['status'=>1, 'message'=>'done']);
 	}
 
 	public function reCountSalary($id){
@@ -265,6 +272,6 @@ class WorktimeController extends Controller
 			->update($salary);
 
 		
-		return response()->json(['status'=>1], 200);
+		return response()->json(['status'=>1, 'message'=>'done'], 200);
 	}
 }

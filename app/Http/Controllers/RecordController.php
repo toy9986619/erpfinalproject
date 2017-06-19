@@ -105,12 +105,19 @@ class RecordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($sid)
+    public function show(Request $request, $sid)
 	{
 		$year=date("Y");
 		$month=date("m");
 		$time = $year."-".$month;
         $days=date('t', mktime(0, 0, 0, $month, 1, $year));
+
+        if($request->has('date')){
+            $time = $request->input('date');
+            $strtemp = explode("-", $time);
+            $year = $strtemp[0];
+            $month = $strtemp[1];
+        }
 
         $recordResult=array();
 

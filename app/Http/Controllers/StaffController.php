@@ -100,8 +100,10 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($sid)
     {
-        //
+        DB::table('staff')->where('sid', $sid)->delete();
+
+        return response()->json(['status' => 1, 'delete' => $sid], 200);
     }
 }

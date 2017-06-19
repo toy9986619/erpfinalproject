@@ -57,7 +57,6 @@ $(document).ready(function(){
 							var id = staffId;
 							return function(){ 
 								getInfo(id)
-								
 								//彈窗開始
 								$("#demo02").animatedModal({
 									modalTarget:'animatedModal2'
@@ -65,7 +64,6 @@ $(document).ready(function(){
 	                    		lnk = document.getElementById("demo02");
  	                    		lnk.click();
  	                    		//彈窗結束
-
 							};
 						})() );
 						$infoButton.text("info"+staffId);
@@ -100,11 +98,10 @@ $(document).ready(function(){
 						}
 						$(pagestr).appendTo($("#recordSite"));
 						$("#recordSite").append("&nbsp;");
-						//$("#recordSite").innerHTML += "&amp;nbsp;";
-						//$("tt").appendTo($("#recordSite"));
+						
 					}
 
-				
+
 
 
 				},
@@ -117,10 +114,19 @@ $(document).ready(function(){
 
 
 		
-		function getInfo(id){
+		function getInfo(id, searchDate){
+			var dateData;
+			if(typeof(searchDate) != "undefined"){
+				//alert(searchDate);
+				dateData={
+					"date": searchDate,
+				};
+			}
+
 			$.ajax({
 				url: "http://erpfinalproject.ddns.net:808/record/"+id+"",
 				type: "GET",
+				data: dateData,
 				dataType: "json",
 
 				success: function(jsonData){
@@ -157,7 +163,26 @@ $(document).ready(function(){
 						tablestr += "</tr>";
 					
 						$(tablestr).appendTo($table);
+
 					}
+
+					$('#recordInfoSite').append("<br>");
+					var searchHTML='<p id="searchP"> 查詢指定年月時間: <input id="datePicker" /> </p>';
+					$('#recordInfoSite').append(searchHTML);
+					if(typeof(searchDate) != "undefined"){
+						$("#datePicker").val(searchDate);
+					}
+					$("#datePicker").datepick({dateFormat: 'yyyy-mm'}, $.datepick.regionalOptions['zh-TW']);
+					
+					$searchButton = $(document.createElement('button'));
+					$searchButton.text("查詢");
+					$searchButton.click( function(){
+						var searchDate = $("#datePicker").val();
+						//alert(id+" "+searchDate);
+						getInfo(id, searchDate);
+					} );
+					$('#searchP').append($searchButton);
+
 				},
 
 				error: function(){
