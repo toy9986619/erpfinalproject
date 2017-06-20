@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::group(['middleware'=>'auth'], function(){
+Route::group(['middleware'=>'auth'], function(){
 	Route::get('testjson', function(){
 		return view('testjson');
 	});
@@ -47,7 +47,7 @@ Route::get('/', function () {
 	Route::put('recountsalary/{id}', 'WorktimeController@reCountSalary');
 	Route::resource('admin', 'UserController');
 
-//});
+});
 
 Route::get('login', 'LoginController@show');
 Route::post('login', 'LoginController@login');

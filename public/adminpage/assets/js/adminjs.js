@@ -61,7 +61,7 @@ $(document).ready(function(){
 							var id = data[i]['id'];
 							return function(){ deleteAdmin(id)};
 						})() );
-						$deleteButton.text("delete"+id);
+						$deleteButton.text("delete");
 						$deleteButton.appendTo("#delete"+id+"");
 					}
 					

@@ -25,10 +25,18 @@ class SalaryController extends Controller
         $staff=DB::table('staff')->get();
         $staffNum = count($staff);
 
+        $DBsalary = DB::table('salary')
+                    ->where('salarytime', "$year$month")
+                    ->first();
+        if(!isset($DBsalary)){
+            return response()->json(['count'=>0, 'result'=>""], 200);
+        }
+
 		$salarys = DB::table('salary')
 			->join('staff', 'salary.username', '=', 'staff.username')
 			->select('salary.id', 'salary.salarytime', 'staff.sid', 'salary.staffId', 'salary.username', 'salary.allworktime', 'salary.salary', 'salary.extra', 'salary.allsalary', 'salary.exception','salary.remark')
 			->where('salarytime', '=', $time)->skip($page*10)->take(10)->get();
+
 		return response()->json(array('count'=>$staffNum, 'result'=>$salarys), 200);
 	}
 

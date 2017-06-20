@@ -11,10 +11,11 @@ class StaffTableSeeder extends Seeder
      */
     public function run()
     {
-//		DB::table('staff')->truncate();		
+		DB::table('staff')->truncate();		
 		for($i=1;$i<=25;$i++){
 			$staff = factory(App\Staff::class)->create([
-				'hourSalary' => '133'
+				'baseSalary' => '32000',
+				'hourSalary' => '182'
 			]);
 		}
     }

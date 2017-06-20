@@ -85,7 +85,7 @@
  	                    		//彈窗結束
 							};
 						})() );
-						$infoButton.text("edit"+salaryId);
+						$infoButton.text("edit");
 						$infoButton.appendTo("#salaryEdit"+salaryId+"");
 					}
 					
@@ -147,7 +147,7 @@
 
 
 		function editSalary(id){
-
+			
 			$.ajax({
 				url: "http://erpfinalproject.ddns.net:808/salary/"+id+"/edit",
 				type: "GET",
@@ -228,6 +228,8 @@
 		}
 
 		function countSalary(){
+		$("#salaryMsgSite").empty();
+
 			$.ajax({
 				url: "http://erpfinalproject.ddns.net:808/countSalary",
 				type: "get",

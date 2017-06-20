@@ -17,13 +17,13 @@ class RecordSeeder extends Seeder
 				'staffId'=>DB::table('staff')->where('sid',$i)->value('staffId'),
 				'rfid'=>DB::table('staff')->where('sid',$i)->value('rfid'),
 				'username'=>DB::table('staff')->where('sid',$i)->value('username'),
-				'created_at'=>('2017-06-02 09:00:00'),	
+				'created_at'=>('2017-05-04 09:00:00'),	
 			]);
 			DB::table('record')->insert([
 				'staffId'=>DB::table('staff')->where('sid',$i)->value('staffId'),
 				'rfid'=>DB::table('staff')->where('sid',$i)->value('rfid'),
 				'username'=>DB::table('staff')->where('sid',$i)->value('username'),
-				'created_at'=>('2017-06-02 20:00:00'),
+				'created_at'=>('2017-05-04 20:00:00'),
 			]);
 		}
 

@@ -66,7 +66,7 @@ $(document).ready(function(){
  	                    		//彈窗結束
 							};
 						})() );
-						$infoButton.text("info"+staffId);
+						$infoButton.text("info");
 						$infoButton.appendTo("#info"+staffId+"");
 					}
 					if(dataCount<10){
